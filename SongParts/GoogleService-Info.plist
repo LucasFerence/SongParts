@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>321455160607-ufu9ft78ag4rucs0pgpan418i6ia8fmt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.321455160607-ufu9ft78ag4rucs0pgpan418i6ia8fmt</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBAJsivXcINyII3yXtXWobxin4DMJvY0WQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>321455160607</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ference.SongParts</string>
+	<key>PROJECT_ID</key>
+	<string>songparts-e07d9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>songparts-e07d9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:321455160607:ios:5b0dbf8494cb87415bc42a</string>
+	<key>DATABASE_URL</key>
+	<string>https://songparts-e07d9.firebaseio.com</string>
+</dict>
+</plist>
