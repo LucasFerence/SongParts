@@ -3,3 +3,4 @@ build/
 
 *.xcworkspace
 *.lock
+GoogleService-Info.plist
