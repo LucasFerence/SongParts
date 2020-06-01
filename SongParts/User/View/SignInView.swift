@@ -14,10 +14,11 @@ struct SignInView : View {
     @State var password: String = ""
     @State var loading = false
     @State var error = false
+    @State var newUser = false
 
     @EnvironmentObject var session: SessionStore
 
-    func signIn () {
+    func signIn() {
         loading = true
         error = false
         session.signIn(email: email, password: password) { (result, error) in
@@ -34,15 +35,24 @@ struct SignInView : View {
 
     var body: some View {
         VStack {
-            TextField("Enter your email", text: $email)
-            SecureField("Enter your password", text: $password)
-            
-            if (error) {
-                Text("Error signing in")
-            }
-            
-            Button(action: signIn) {
-                Text("Sign in")
+            if (newUser) {
+                NewUserView()
+            } else {
+                TextField("Enter your email", text: $email)
+                SecureField("Enter your password", text: $password)
+                
+                if (error) {
+                    Text("Error signing in")
+                }
+                
+                Button(action: signIn) {
+                    Text("Sign in")
+                }
+                
+                Divider()
+                Button("New User") {
+                    self.newUser = true
+                }
             }
         }
     }
