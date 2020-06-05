@@ -19,9 +19,9 @@ struct ContentView: View {
     var body: some View {
         Group {
             if (session.session != nil) {
-                Text("Hello user!")
+                SignOutView()
             } else {
-                SignInView().environmentObject(session)
+                SignInView()
             }
         }
         .onAppear(perform: getUser)

@@ -17,12 +17,11 @@ struct SignInView : View {
     @State private var email: String = ""
     @State private var password: String = ""
     
-    @State var newUser = false
-    @State var showingError = false
-    @State var error: String? = nil
+    @State private var newUser = false
+    @State private var showingError = false
+    @State private var error: String? = nil
 
     func signIn() {
-        signInSuccess = false
         session.signIn(email: email, password: password) { (result, error) in
             if error != nil {
                 self.showingError = true
@@ -40,7 +39,7 @@ struct SignInView : View {
             if (signInSuccess) {
                 ContentView()
             } else if (newUser) {
-                NewUserView(signInSuccess: $signInSuccess)
+                NewUserView()
             } else {
                 
                 Text("Sign in")

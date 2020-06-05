@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A03B663C24846476004E7DCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A03B663B24846476004E7DCE /* GoogleService-Info.plist */; };
 		A03B663E248484C5004E7DCE /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03B663D248484C5004E7DCE /* NewUserView.swift */; };
+		A04585C82489E2C3005C9ADC /* SignOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04585C72489E2C3005C9ADC /* SignOutView.swift */; };
 		A0EDCE652483FE4100AA30C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EDCE642483FE4100AA30C6 /* AppDelegate.swift */; };
 		A0EDCE672483FE4100AA30C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EDCE662483FE4100AA30C6 /* SceneDelegate.swift */; };
 		A0EDCE692483FE4100AA30C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EDCE682483FE4100AA30C6 /* ContentView.swift */; };
@@ -27,6 +28,7 @@
 		641F53EB5886E35B5F5469A8 /* Pods-SongParts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.release.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.release.xcconfig"; sourceTree = "<group>"; };
 		A03B663B24846476004E7DCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A03B663D248484C5004E7DCE /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
+		A04585C72489E2C3005C9ADC /* SignOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutView.swift; sourceTree = "<group>"; };
 		A0EDCE612483FE4100AA30C6 /* SongParts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongParts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0EDCE642483FE4100AA30C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0EDCE662483FE4100AA30C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				A0EDCE8024845FAE00AA30C6 /* SignInView.swift */,
 				A03B663D248484C5004E7DCE /* NewUserView.swift */,
+				A04585C72489E2C3005C9ADC /* SignOutView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04585C82489E2C3005C9ADC /* SignOutView.swift in Sources */,
 				A0EDCE8124845FAE00AA30C6 /* SignInView.swift in Sources */,
 				A03B663E248484C5004E7DCE /* NewUserView.swift in Sources */,
 				A0EDCE652483FE4100AA30C6 /* AppDelegate.swift in Sources */,
