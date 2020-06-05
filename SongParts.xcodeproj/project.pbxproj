@@ -61,6 +61,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A03B6646248876C2004E7DCE /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A0EDCE782484495D00AA30C6 /* User */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		A03B6647248876CD004E7DCE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A0EDCE682483FE4100AA30C6 /* ContentView.swift */,
+				A03B6648248876E2004E7DCE /* User */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A03B6648248876E2004E7DCE /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A0EDCE8024845FAE00AA30C6 /* SignInView.swift */,
+				A03B663D248484C5004E7DCE /* NewUserView.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		A0EDCE582483FE4100AA30C6 = {
 			isa = PBXGroup;
 			children = (
@@ -82,13 +108,13 @@
 		A0EDCE632483FE4100AA30C6 /* SongParts */ = {
 			isa = PBXGroup;
 			children = (
-				A0EDCE782484495D00AA30C6 /* User */,
+				A03B6646248876C2004E7DCE /* Application */,
+				A03B6647248876CD004E7DCE /* View */,
 				A0EDCE642483FE4100AA30C6 /* AppDelegate.swift */,
 				A0EDCE662483FE4100AA30C6 /* SceneDelegate.swift */,
-				A0EDCE682483FE4100AA30C6 /* ContentView.swift */,
-				A0EDCE6A2483FE4400AA30C6 /* Assets.xcassets */,
 				A0EDCE6F2483FE4400AA30C6 /* LaunchScreen.storyboard */,
 				A0EDCE722483FE4400AA30C6 /* Info.plist */,
+				A0EDCE6A2483FE4400AA30C6 /* Assets.xcassets */,
 				A03B663B24846476004E7DCE /* GoogleService-Info.plist */,
 				A0EDCE6C2483FE4400AA30C6 /* Preview Content */,
 			);
@@ -106,20 +132,10 @@
 		A0EDCE782484495D00AA30C6 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				A0EDCE7F24845FA000AA30C6 /* View */,
 				A0EDCE7B24845BCC00AA30C6 /* SessionStore.swift */,
 				A0EDCE7D24845C8500AA30C6 /* User.swift */,
 			);
 			path = User;
-			sourceTree = "<group>";
-		};
-		A0EDCE7F24845FA000AA30C6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A0EDCE8024845FAE00AA30C6 /* SignInView.swift */,
-				A03B663D248484C5004E7DCE /* NewUserView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		CAA0C88C4F5D7A82FAC1CEE4 /* Frameworks */ = {
