@@ -24,7 +24,7 @@ struct SignOutView: View {
         
         Group {
             if (signOutSuccess) {
-                ContentView()
+                RootView()
             } else {
                 Button(action: signOut) {
                     Text("Sign Out")

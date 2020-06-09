@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             
             window.rootViewController = UIHostingController(
-                rootView: ContentView().environmentObject(SessionStore())
+                rootView: RootView().environmentObject(SessionStore())
             )
             
             self.window = window

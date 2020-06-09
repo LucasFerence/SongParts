@@ -11,79 +11,85 @@ import SwiftUI
 struct NewUserView: View {
     
     @EnvironmentObject var session: SessionStore
-    @Binding var signInSuccess: Bool
     
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     
-    @State private var showingError = false
-    @State private var error: String? = nil
+    // -- Error states --
+    @State private var error: Error?
+    
+    // -- Transition states --
+    @State var creationSuccess = false
 
     func createAccount() {
         if (password == confirmPassword) {
             session.createAccount(email: email, password: password) { (result, err) in
                 if err != nil {
-                    self.showingError = true
-                    self.error = err?.localizedDescription
+                    self.error = Error(message: err!.localizedDescription)
                 } else {
-                    self.signInSuccess = true
+                    self.creationSuccess = true
                 }
             }
         } else {
-            self.showingError = true
-            self.error = "Passwords did not match"
+            self.error = Error(message: "Passwords did not match")
         }
     }
 
     var body: some View {
-        VStack {
-            Text("New User")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(Color.black)
-                .padding([.top, .bottom], 40)
-            
-            Spacer()
-            
-            TextField("Enter your email", text: $email)
-                .padding()
-                .background(Color.white)
-                .keyboardType(.emailAddress)
-                .cornerRadius(20.0)
-                            
-            SecureField("Enter your password", text: $password)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(20)
-            
-            SecureField("Confirm password", text: $confirmPassword)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(20)
-            
-            Spacer()
-            
-            Button(action: createAccount) {
-                Text("Create Account")
-                    .font(.headline)
-                    .foregroundColor(.white)
+        Group {
+            if (creationSuccess) {
+                SignOutView()
+            } else {
+                VStack {
+                    Text("New User")
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(Color.black)
+                        .padding([.top, .bottom], 40)
+                    
+                    Spacer()
+                    
+                    TextField("Enter your email", text: $email)
+                        .padding()
+                        .background(Color.white)
+                        .keyboardType(.emailAddress)
+                        .cornerRadius(20.0)
+                                    
+                    SecureField("Enter your password", text: $password)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(20)
+                    
+                    SecureField("Confirm password", text: $confirmPassword)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(20)
+                    
+                    Spacer()
+                    
+                    Button(action: createAccount) {
+                        Text("Create Account")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(15.0)
+                    }
                     .padding()
-                    .frame(width: 300, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(15.0)
+                    
+                    Spacer()
+                }
+                .padding([.leading, .trailing], 30.0)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom)
+                        .edgesIgnoringSafeArea(.all)
+                )
+                .alert(item: $error) { err in
+                    Alert(title: Text("Error"), message: Text(err.message))
+                }
             }
-            .padding()
-            
-            Spacer()
-        }
-        .padding([.leading, .trailing], 30.0)
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.white, .gray]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-        )
-        .alert(isPresented: $showingError) {
-            Alert(title: Text("Error"), message: Text(error!))
         }
     }
 }
@@ -91,6 +97,6 @@ struct NewUserView: View {
 struct NewUserView_Previews: PreviewProvider {
         
     static var previews: some View {
-        NewUserView(signInSuccess: .constant(false))
+        NewUserView()
     }
 }

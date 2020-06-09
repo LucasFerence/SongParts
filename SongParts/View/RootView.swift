@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RootView: View {
 
     @EnvironmentObject var session: SessionStore
     
@@ -23,10 +23,8 @@ struct ContentView: View {
         Group {
             if (session.session != nil) {
                 SignOutView()
-            } else if (newUser) {
-                NewUserView(signInSuccess: $signInSuccess)
             } else {
-                SignInView(newUser: $newUser, signInSuccess: $signInSuccess)
+                SignInView()
             }
         }
         .onAppear(perform: getUser)
@@ -35,6 +33,6 @@ struct ContentView: View {
 
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(SessionStore())
+        RootView().environmentObject(SessionStore())
     }
 }
