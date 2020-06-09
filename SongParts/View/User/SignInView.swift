@@ -11,13 +11,12 @@ import SwiftUI
 struct SignInView : View {
     
     @EnvironmentObject var session: SessionStore
-    
-    @State private var signInSuccess = false
+    @Binding var newUser: Bool
+    @Binding var signInSuccess: Bool
 
     @State private var email: String = ""
     @State private var password: String = ""
     
-    @State private var newUser = false
     @State private var showingError = false
     @State private var error: String? = nil
 
@@ -36,50 +35,43 @@ struct SignInView : View {
 
     var body: some View {
         VStack {
-            if (signInSuccess) {
-                ContentView()
-            } else if (newUser) {
-                NewUserView()
-            } else {
-                
-                Text("Sign in")
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(Color.black)
-                    .padding([.top, .bottom], 40)
-                
-                Spacer()
-                
-                TextField("Enter your email", text: $email)
-                    .padding()
-                    .background(Color.white)
-                    .keyboardType(.emailAddress)
-                    .cornerRadius(20.0)
-                                
-                SecureField("Enter your password", text: $password)
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(20)
-                
-                Spacer()
-                
-                Button(action: signIn) {
-                    Text("Sign in")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(15.0)
-                }
+            Text("Sign in")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(Color.black)
+                .padding([.top, .bottom], 40)
+            
+            Spacer()
+            
+            TextField("Enter your email", text: $email)
                 .padding()
-                                
-                Button("New User") {
-                    self.newUser = true
-                }
-                
-                Spacer()
+                .background(Color.white)
+                .keyboardType(.emailAddress)
+                .cornerRadius(20.0)
+                            
+            SecureField("Enter your password", text: $password)
+                .padding()
+                .background(Color.white)
+                .cornerRadius(20)
+            
+            Spacer()
+            
+            Button(action: signIn) {
+                Text("Sign in")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.blue)
+                    .cornerRadius(15.0)
             }
+            .padding()
+                            
+            Button("New User") {
+                self.newUser = true
+            }
+            
+            Spacer()
         }
         .padding([.leading, .trailing], 30.0)
         .background(
@@ -94,6 +86,6 @@ struct SignInView : View {
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView()
+        SignInView(newUser: .constant(false), signInSuccess: .constant(false))
     }
 }

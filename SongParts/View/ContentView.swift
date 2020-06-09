@@ -11,6 +11,9 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var session: SessionStore
+    
+    @State private var newUser = false
+    @State private var signInSuccess = false
 
     func getUser() {
         session.listen()
@@ -20,8 +23,10 @@ struct ContentView: View {
         Group {
             if (session.session != nil) {
                 SignOutView()
+            } else if (newUser) {
+                NewUserView(signInSuccess: $signInSuccess)
             } else {
-                SignInView()
+                SignInView(newUser: $newUser, signInSuccess: $signInSuccess)
             }
         }
         .onAppear(perform: getUser)
