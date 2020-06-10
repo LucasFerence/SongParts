@@ -16,6 +16,10 @@ class SessionStore : ObservableObject {
     
     let didChange = PassthroughSubject<SessionStore, Never>()
     var handle: AuthStateDidChangeListenerHandle?
+    
+    func isAvailable() -> Bool {
+        return session != nil
+    }
 
     func listen() {
         // monitor authentication changes using firebase

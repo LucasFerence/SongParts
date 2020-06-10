@@ -15,32 +15,45 @@ struct WelcomeView: View {
       case register
     }
     
+    @EnvironmentObject private var session: SessionStore
+    
     @State private var presentedView: PresentedView?
     
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            Text("Share music with others around the world")
-                .modifier(TitleText())
-                .padding([.bottom, .leading, .trailing])
-            
-            Spacer()
-          
-            VStack(spacing: 30) {
-                NavigationLink(destination: EmptyView()) {
-                    PrimaryButton(title: "Log In")
+        Group {
+            if (session.isAvailable()) {
+                HomeView()
+            } else {
+                VStack(alignment: .leading) {
+                    
+                    Text("Share music with others around the world")
+                        .modifier(TitleText())
+                        .padding([.bottom, .leading, .trailing])
+                    
+                    Spacer()
+                  
+                    VStack(spacing: 30) {
+                        NavigationLink(destination: LoginView()) {
+                            PrimaryButton(title: "Log In")
+                        }
+                  
+                        NavigationLink(destination: NewUserView()) {
+                            SecondaryButton(title: "Sign Up")
+                        }
+                    }
+                    .padding([.leading, .bottom, .trailing])
+                    .padding(.top, 40)
+                  
+                    Spacer()
                 }
-          
-                NavigationLink(destination: EmptyView()) {
-                    SecondaryButton(title: "Sign Up")
-                }
+                .navigationBarTitle("Welcome")
             }
-            .padding([.leading, .bottom, .trailing])
-            .padding(.top, 40)
-          
-            Spacer()
         }
-        .navigationBarTitle("Welcome")
+        .onAppear(perform: checkSession)
+    }
+    
+    func checkSession() {
+        session.listen()
     }
 }
 
