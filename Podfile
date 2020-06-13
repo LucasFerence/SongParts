@@ -6,4 +6,7 @@ target 'SongParts' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
+  # --- MongoDB ---
+  pod 'MongoSwift'
+
 end

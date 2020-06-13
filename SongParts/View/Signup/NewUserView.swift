@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 
+
 struct NewUserView: View {
     
     @EnvironmentObject private var session: SessionStore
@@ -22,7 +23,7 @@ struct NewUserView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 26) {
-            Text("Log In")
+            Text("New User")
                 .modifier(TitleText())
             
             ErrorTextField(
@@ -50,7 +51,7 @@ struct NewUserView: View {
             
             NavigationLink(destination: HomeView(), isActive: $userCreated) {
                 Button(action: createUser) {
-                    PrimaryButton(title: "Log In")
+                    PrimaryButton(title: "Create User")
                 }
             }
         }

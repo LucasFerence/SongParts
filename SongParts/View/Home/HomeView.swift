@@ -13,6 +13,35 @@ struct HomeView: View {
     @EnvironmentObject private var session: SessionStore
     
     @State private var signOutSuccess = false
+    @State private var isPickerOpen = false
+    
+    var body: some View {
+        Group {
+            if (signOutSuccess) {
+                WelcomeView()
+            } else if (isPickerOpen) {
+                PickerView(Text("Picker"))
+            } else {
+                VStack {
+                    Spacer()
+                    
+                    Button(action: openPicker) {
+                        PrimaryButton(title: "Select Document")
+                    }
+                    
+                    Spacer()
+                    
+                    _PrimaryButton(title: "Log Out") {
+                        self.signOut()
+                    }
+                    
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+        .navigationBarBackButtonHidden(true)
+    }
     
     func signOut() {
         if (session.signOut()) {
@@ -20,17 +49,7 @@ struct HomeView: View {
         }
     }
     
-    var body: some View {
-        Group {
-            if (signOutSuccess) {
-                WelcomeView()
-            } else {
-                _PrimaryButton(title: "Log Out") {
-                    self.signOut()
-                }
-            }
-        }
-        .padding()
-        .navigationBarBackButtonHidden(true)
+    func openPicker() {
+        self.isPickerOpen = true
     }
 }
