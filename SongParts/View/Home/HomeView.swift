@@ -13,14 +13,12 @@ struct HomeView: View {
     @EnvironmentObject private var session: SessionStore
     
     @State private var signOutSuccess = false
-    @State private var isPickerOpen = false
+    @State private var isPickerShown = false
     
     var body: some View {
         Group {
             if (signOutSuccess) {
                 WelcomeView()
-            } else if (isPickerOpen) {
-                PickerView(Text("Picker"))
             } else {
                 VStack {
                     Spacer()
@@ -37,6 +35,9 @@ struct HomeView: View {
                     
                     Spacer()
                 }
+                .sheet(isPresented: $isPickerShown) {
+                    DocumentPickerView()
+                }
             }
         }
         .padding()
@@ -50,6 +51,6 @@ struct HomeView: View {
     }
     
     func openPicker() {
-        self.isPickerOpen = true
+        self.isPickerShown = true
     }
 }

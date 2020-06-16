@@ -9,12 +9,8 @@
 /* Begin PBXBuildFile section */
 		A03B663C24846476004E7DCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A03B663B24846476004E7DCE /* GoogleService-Info.plist */; };
 		A0492A612490941800A6A533 /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A602490941800A6A533 /* NewUserView.swift */; };
-		A0492A64249302F800A6A533 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A63249302F800A6A533 /* Document.swift */; };
-		A0492A66249303CB00A6A533 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A65249303CB00A6A533 /* DocumentPicker.swift */; };
-		A0492A68249304BB00A6A533 /* DocumentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A67249304BB00A6A533 /* DocumentDelegate.swift */; };
-		A0492A6C24944CA600A6A533 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A6B24944CA600A6A533 /* DocumentPickerViewController.swift */; };
-		A0492A6F249450AA00A6A533 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A6E249450AA00A6A533 /* PickerViewController.swift */; };
-		A0492A71249451ED00A6A533 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A70249451ED00A6A533 /* PickerView.swift */; };
+		A0492A71249451ED00A6A533 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A70249451ED00A6A533 /* DocumentPickerView.swift */; };
+		A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A722498486800A6A533 /* DocumentPicker.swift */; };
 		A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A520248DCAB100627E94 /* ViewUnwrapper.swift */; };
 		A065A523248F10F600627E94 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A522248F10F600627E94 /* Error.swift */; };
 		A065A526248F20D300627E94 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A525248F20D300627E94 /* WelcomeView.swift */; };
@@ -40,12 +36,8 @@
 		641F53EB5886E35B5F5469A8 /* Pods-SongParts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.release.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.release.xcconfig"; sourceTree = "<group>"; };
 		A03B663B24846476004E7DCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0492A602490941800A6A533 /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
-		A0492A63249302F800A6A533 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		A0492A65249303CB00A6A533 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		A0492A67249304BB00A6A533 /* DocumentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDelegate.swift; sourceTree = "<group>"; };
-		A0492A6B24944CA600A6A533 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
-		A0492A6E249450AA00A6A533 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
-		A0492A70249451ED00A6A533 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		A0492A70249451ED00A6A533 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
+		A0492A722498486800A6A533 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		A065A520248DCAB100627E94 /* ViewUnwrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUnwrapper.swift; sourceTree = "<group>"; };
 		A065A522248F10F600627E94 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A065A525248F20D300627E94 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -90,8 +82,6 @@
 		A03B6646248876C2004E7DCE /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A0492A622492FE3600A6A533 /* Document */,
-				A065A51F248DCAA100627E94 /* Views */,
 				A0EDCE782484495D00AA30C6 /* User */,
 			);
 			path = Application;
@@ -108,33 +98,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A0492A622492FE3600A6A533 /* Document */ = {
-			isa = PBXGroup;
-			children = (
-				A0492A63249302F800A6A533 /* Document.swift */,
-				A0492A65249303CB00A6A533 /* DocumentPicker.swift */,
-				A0492A67249304BB00A6A533 /* DocumentDelegate.swift */,
-				A0492A6B24944CA600A6A533 /* DocumentPickerViewController.swift */,
-			);
-			path = Document;
-			sourceTree = "<group>";
-		};
 		A0492A6D2494508F00A6A533 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				A0492A6E249450AA00A6A533 /* PickerViewController.swift */,
-				A0492A70249451ED00A6A533 /* PickerView.swift */,
+				A0492A722498486800A6A533 /* DocumentPicker.swift */,
+				A0492A70249451ED00A6A533 /* DocumentPickerView.swift */,
 			);
 			path = Document;
-			sourceTree = "<group>";
-		};
-		A065A51F248DCAA100627E94 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A065A522248F10F600627E94 /* Error.swift */,
-				A065A520248DCAB100627E94 /* ViewUnwrapper.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		A065A524248F20BD00627E94 /* Signup */ = {
@@ -150,6 +120,8 @@
 		A065A527248F214C00627E94 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A065A520248DCAB100627E94 /* ViewUnwrapper.swift */,
+				A065A522248F10F600627E94 /* Error.swift */,
 				A065A528248F215C00627E94 /* TextModifiers.swift */,
 				A065A52A248F218500627E94 /* Colors.swift */,
 				A065A52C248F21F700627E94 /* ButtonViews.swift */,
@@ -346,21 +318,17 @@
 				A065A5362490566800627E94 /* HomeView.swift in Sources */,
 				A0EDCE652483FE4100AA30C6 /* AppDelegate.swift in Sources */,
 				A0EDCE7C24845BCC00AA30C6 /* SessionStore.swift in Sources */,
-				A0492A6F249450AA00A6A533 /* PickerViewController.swift in Sources */,
-				A0492A6C24944CA600A6A533 /* DocumentPickerViewController.swift in Sources */,
 				A0EDCE7E24845C8500AA30C6 /* User.swift in Sources */,
-				A0492A71249451ED00A6A533 /* PickerView.swift in Sources */,
+				A0492A71249451ED00A6A533 /* DocumentPickerView.swift in Sources */,
 				A065A526248F20D300627E94 /* WelcomeView.swift in Sources */,
 				A065A52B248F218500627E94 /* Colors.swift in Sources */,
 				A065A531248F27C100627E94 /* ErrorTextField.swift in Sources */,
 				A0EDCE672483FE4100AA30C6 /* SceneDelegate.swift in Sources */,
 				A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */,
 				A065A523248F10F600627E94 /* Error.swift in Sources */,
-				A0492A68249304BB00A6A533 /* DocumentDelegate.swift in Sources */,
-				A0492A66249303CB00A6A533 /* DocumentPicker.swift in Sources */,
 				A065A53324904D0C00627E94 /* LoginView.swift in Sources */,
 				A0492A612490941800A6A533 /* NewUserView.swift in Sources */,
-				A0492A64249302F800A6A533 /* Document.swift in Sources */,
+				A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
