@@ -19,6 +19,13 @@ class PlayerUIView: UIView {
         layer.addSublayer(playerLayer)
     }
     
+    init(player: AVPlayer) {
+        super.init(frame: .zero)
+        playerLayer.player = player
+        player.play()
+        layer.addSublayer(playerLayer)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

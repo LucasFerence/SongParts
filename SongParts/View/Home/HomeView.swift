@@ -11,9 +11,9 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject private var session: SessionStore
-    
+        
     @State private var inputImage: UIImage?
-    @State private var image: Image?
+    @State private var url: URL?
     
     @State private var signOutSuccess = false
     @State private var isPickerShown = false
@@ -26,9 +26,9 @@ struct HomeView: View {
                 VStack {
                     Spacer()
                     
-                    image?
-                        .resizable()
-                        .scaledToFit()
+                    if (self.url != nil) {
+                        Player(url: self.url!)
+                    }
                     
                     _PrimaryButton(title: "Select Image") {
                         self.isPickerShown = true
@@ -44,17 +44,12 @@ struct HomeView: View {
                     
                     Spacer()
                 }
-                .sheet(isPresented: $isPickerShown, onDismiss: loadImage) {
-                    ImagePicker(image: self.$inputImage)
+                .sheet(isPresented: $isPickerShown) {
+                    ImagePicker(url: self.$url)
                 }
             }
         }
         .padding()
         .navigationBarBackButtonHidden(true)
-    }
-    
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        image = Image(uiImage: inputImage)
     }
 }

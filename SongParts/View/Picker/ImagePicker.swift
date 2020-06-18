@@ -6,12 +6,13 @@
 //  Copyright © 2020 Lucas Ference. All rights reserved.
 //
 
+import Photos
 import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Environment(\.presentationMode) var presentationMode
-    @Binding var image: UIImage?
+    @Binding var url: URL?
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -20,6 +21,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
+        picker.mediaTypes = ["public.image", "public.movie"]
         
         return picker
     }
@@ -37,8 +39,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.image = uiImage
+            if let mediaUrl = info[.mediaURL] as? NSURL {
+                self.parent.url = mediaUrl.absoluteURL
             }
 
             parent.presentationMode.wrappedValue.dismiss()
