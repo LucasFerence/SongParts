@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		A03B663C24846476004E7DCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A03B663B24846476004E7DCE /* GoogleService-Info.plist */; };
 		A0492A612490941800A6A533 /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A602490941800A6A533 /* NewUserView.swift */; };
-		A0492A71249451ED00A6A533 /* DocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A70249451ED00A6A533 /* DocumentPickerView.swift */; };
 		A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A722498486800A6A533 /* DocumentPicker.swift */; };
+		A0492A76249867DB00A6A533 /* PlayerUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A75249867DB00A6A533 /* PlayerUIView.swift */; };
+		A0492A782498688300A6A533 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A772498688300A6A533 /* Player.swift */; };
+		A0492A7B249AE4EA00A6A533 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A7A249AE4EA00A6A533 /* ImagePicker.swift */; };
 		A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A520248DCAB100627E94 /* ViewUnwrapper.swift */; };
 		A065A523248F10F600627E94 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A522248F10F600627E94 /* Error.swift */; };
 		A065A526248F20D300627E94 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A525248F20D300627E94 /* WelcomeView.swift */; };
@@ -36,8 +38,10 @@
 		641F53EB5886E35B5F5469A8 /* Pods-SongParts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.release.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.release.xcconfig"; sourceTree = "<group>"; };
 		A03B663B24846476004E7DCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0492A602490941800A6A533 /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
-		A0492A70249451ED00A6A533 /* DocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerView.swift; sourceTree = "<group>"; };
 		A0492A722498486800A6A533 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		A0492A75249867DB00A6A533 /* PlayerUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUIView.swift; sourceTree = "<group>"; };
+		A0492A772498688300A6A533 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		A0492A7A249AE4EA00A6A533 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A065A520248DCAB100627E94 /* ViewUnwrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUnwrapper.swift; sourceTree = "<group>"; };
 		A065A522248F10F600627E94 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A065A525248F20D300627E94 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -90,7 +94,8 @@
 		A03B6647248876CD004E7DCE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A0492A6D2494508F00A6A533 /* Document */,
+				A0492A79249AE4D600A6A533 /* Picker */,
+				A0492A74249867C200A6A533 /* Player */,
 				A065A5342490565A00627E94 /* Home */,
 				A065A527248F214C00627E94 /* Common */,
 				A065A524248F20BD00627E94 /* Signup */,
@@ -98,13 +103,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A0492A6D2494508F00A6A533 /* Document */ = {
+		A0492A74249867C200A6A533 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				A0492A75249867DB00A6A533 /* PlayerUIView.swift */,
+				A0492A772498688300A6A533 /* Player.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		A0492A79249AE4D600A6A533 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
 				A0492A722498486800A6A533 /* DocumentPicker.swift */,
-				A0492A70249451ED00A6A533 /* DocumentPickerView.swift */,
+				A0492A7A249AE4EA00A6A533 /* ImagePicker.swift */,
 			);
-			path = Document;
+			path = Picker;
 			sourceTree = "<group>";
 		};
 		A065A524248F20BD00627E94 /* Signup */ = {
@@ -316,10 +330,11 @@
 				A065A52D248F21F700627E94 /* ButtonViews.swift in Sources */,
 				A065A529248F215C00627E94 /* TextModifiers.swift in Sources */,
 				A065A5362490566800627E94 /* HomeView.swift in Sources */,
+				A0492A7B249AE4EA00A6A533 /* ImagePicker.swift in Sources */,
+				A0492A76249867DB00A6A533 /* PlayerUIView.swift in Sources */,
 				A0EDCE652483FE4100AA30C6 /* AppDelegate.swift in Sources */,
 				A0EDCE7C24845BCC00AA30C6 /* SessionStore.swift in Sources */,
 				A0EDCE7E24845C8500AA30C6 /* User.swift in Sources */,
-				A0492A71249451ED00A6A533 /* DocumentPickerView.swift in Sources */,
 				A065A526248F20D300627E94 /* WelcomeView.swift in Sources */,
 				A065A52B248F218500627E94 /* Colors.swift in Sources */,
 				A065A531248F27C100627E94 /* ErrorTextField.swift in Sources */,
@@ -328,6 +343,7 @@
 				A065A523248F10F600627E94 /* Error.swift in Sources */,
 				A065A53324904D0C00627E94 /* LoginView.swift in Sources */,
 				A0492A612490941800A6A533 /* NewUserView.swift in Sources */,
+				A0492A782498688300A6A533 /* Player.swift in Sources */,
 				A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

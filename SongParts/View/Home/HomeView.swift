@@ -12,6 +12,9 @@ struct HomeView: View {
     
     @EnvironmentObject private var session: SessionStore
     
+    @State private var inputImage: UIImage?
+    @State private var image: Image?
+    
     @State private var signOutSuccess = false
     @State private var isPickerShown = false
     
@@ -23,20 +26,26 @@ struct HomeView: View {
                 VStack {
                     Spacer()
                     
-                    Button(action: openPicker) {
-                        PrimaryButton(title: "Select Document")
+                    image?
+                        .resizable()
+                        .scaledToFit()
+                    
+                    _PrimaryButton(title: "Select Image") {
+                        self.isPickerShown = true
                     }
                     
                     Spacer()
                     
                     _PrimaryButton(title: "Log Out") {
-                        self.signOut()
+                        if (self.session.signOut()) {
+                            self.signOutSuccess = true
+                        }
                     }
                     
                     Spacer()
                 }
-                .sheet(isPresented: $isPickerShown) {
-                    DocumentPickerView()
+                .sheet(isPresented: $isPickerShown, onDismiss: loadImage) {
+                    ImagePicker(image: self.$inputImage)
                 }
             }
         }
@@ -44,13 +53,8 @@ struct HomeView: View {
         .navigationBarBackButtonHidden(true)
     }
     
-    func signOut() {
-        if (session.signOut()) {
-            signOutSuccess = true
-        }
-    }
-    
-    func openPicker() {
-        self.isPickerShown = true
+    func loadImage() {
+        guard let inputImage = inputImage else { return }
+        image = Image(uiImage: inputImage)
     }
 }
