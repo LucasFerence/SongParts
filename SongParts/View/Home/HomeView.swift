@@ -45,7 +45,7 @@ struct HomeView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $isPickerShown) {
-                    ImagePicker(url: self.$url)
+                    ImagePicker(url: self.$url, mediaTypes: [.video])
                 }
             }
         }

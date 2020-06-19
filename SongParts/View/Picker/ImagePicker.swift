@@ -11,8 +11,15 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     
+    enum MediaType: String {
+        case image = "public.image"
+        case video = "public.movie"
+    }
+    
     @Environment(\.presentationMode) var presentationMode
     @Binding var url: URL?
+    
+    let mediaTypes: [MediaType]
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -21,7 +28,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.mediaTypes = ["public.image", "public.movie"]
+        picker.mediaTypes = self.mediaTypes.map{ $0.rawValue }
         
         return picker
     }
