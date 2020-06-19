@@ -27,10 +27,10 @@ struct HomeView: View {
                     Spacer()
                     
                     if (self.url != nil) {
-                        PlayerContainerView(url: self.url!)
+                        VideoView(url: self.url!)
                     }
                     
-                    _PrimaryButton(title: "Select Image") {
+                    _PrimaryButton(title: "Select Video") {
                         self.isPickerShown = true
                     }
                     
