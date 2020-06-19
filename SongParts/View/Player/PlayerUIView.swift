@@ -21,8 +21,10 @@ class PlayerUIView: UIView {
     
     init(player: AVPlayer) {
         super.init(frame: .zero)
+        
         playerLayer.player = player
         player.play()
+        
         layer.addSublayer(playerLayer)
     }
     

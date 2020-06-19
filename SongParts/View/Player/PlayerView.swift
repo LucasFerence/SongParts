@@ -9,12 +9,16 @@
 import AVFoundation
 import SwiftUI
 
-struct Player: UIViewRepresentable {
+struct PlayerView: UIViewRepresentable {
     
-    let url: URL
+    private let player: AVPlayer
     
+    init(player: AVPlayer) {
+        self.player = player
+    }
+
     func makeUIView(context: Context) -> UIView {
-        return PlayerUIView(player: AVPlayer(url: self.url))
+        return PlayerUIView(player: self.player)
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {

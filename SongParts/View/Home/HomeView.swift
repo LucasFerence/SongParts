@@ -27,7 +27,7 @@ struct HomeView: View {
                     Spacer()
                     
                     if (self.url != nil) {
-                        Player(url: self.url!)
+                        PlayerContainerView(url: self.url!)
                     }
                     
                     _PrimaryButton(title: "Select Image") {
