@@ -61,8 +61,11 @@ struct VideoPlayerControlsView : View {
         
         // Do the seek if we're finished
         if !editingStarted {
-            let targetTime = CMTime(seconds: videoPos * videoDuration,
-                                    preferredTimescale: 600)
+            let targetTime = CMTime(
+                seconds: videoPos * videoDuration,
+                preferredTimescale: 600
+            )
+            
             player.seek(to: targetTime) { _ in
                 // Now the seek is finished, resume normal operation
                 self.seeking = false
