@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A00B722324AD60CD0019C051 /* AWSS3Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00B722224AD60CD0019C051 /* AWSS3Manager.swift */; };
 		A03B663C24846476004E7DCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A03B663B24846476004E7DCE /* GoogleService-Info.plist */; };
 		A0492A612490941800A6A533 /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A602490941800A6A533 /* NewUserView.swift */; };
 		A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A722498486800A6A533 /* DocumentPicker.swift */; };
@@ -18,7 +19,7 @@
 		A0492A81249D829200A6A533 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A80249D829200A6A533 /* VideoView.swift */; };
 		A0492A83249D82A800A6A533 /* PlayerTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A82249D82A800A6A533 /* PlayerTimeUtils.swift */; };
 		A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A520248DCAB100627E94 /* ViewUnwrapper.swift */; };
-		A065A523248F10F600627E94 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A522248F10F600627E94 /* Error.swift */; };
+		A065A523248F10F600627E94 /* ViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A522248F10F600627E94 /* ViewError.swift */; };
 		A065A526248F20D300627E94 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A525248F20D300627E94 /* WelcomeView.swift */; };
 		A065A529248F215C00627E94 /* TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A528248F215C00627E94 /* TextModifiers.swift */; };
 		A065A52B248F218500627E94 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A52A248F218500627E94 /* Colors.swift */; };
@@ -40,6 +41,7 @@
 		2DE41EE4F55979AE0718254D /* Pods_SongParts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SongParts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4835AC56BCBDD646098212E7 /* Pods-SongParts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.debug.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.debug.xcconfig"; sourceTree = "<group>"; };
 		641F53EB5886E35B5F5469A8 /* Pods-SongParts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.release.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.release.xcconfig"; sourceTree = "<group>"; };
+		A00B722224AD60CD0019C051 /* AWSS3Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Manager.swift; sourceTree = "<group>"; };
 		A03B663B24846476004E7DCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0492A602490941800A6A533 /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
 		A0492A722498486800A6A533 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -51,7 +53,7 @@
 		A0492A80249D829200A6A533 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A0492A82249D82A800A6A533 /* PlayerTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTimeUtils.swift; sourceTree = "<group>"; };
 		A065A520248DCAB100627E94 /* ViewUnwrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUnwrapper.swift; sourceTree = "<group>"; };
-		A065A522248F10F600627E94 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		A065A522248F10F600627E94 /* ViewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewError.swift; sourceTree = "<group>"; };
 		A065A525248F20D300627E94 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A065A528248F215C00627E94 /* TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifiers.swift; sourceTree = "<group>"; };
 		A065A52A248F218500627E94 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -91,9 +93,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A00B722124AD60B80019C051 /* AmazonS3 */ = {
+			isa = PBXGroup;
+			children = (
+				A00B722224AD60CD0019C051 /* AWSS3Manager.swift */,
+			);
+			path = AmazonS3;
+			sourceTree = "<group>";
+		};
 		A03B6646248876C2004E7DCE /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				A00B722124AD60B80019C051 /* AmazonS3 */,
 				A0492A84249D833400A6A533 /* Player */,
 				A0EDCE782484495D00AA30C6 /* User */,
 			);
@@ -163,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				A065A520248DCAB100627E94 /* ViewUnwrapper.swift */,
-				A065A522248F10F600627E94 /* Error.swift */,
+				A065A522248F10F600627E94 /* ViewError.swift */,
 				A065A528248F215C00627E94 /* TextModifiers.swift */,
 				A065A52A248F218500627E94 /* Colors.swift */,
 				A065A52C248F21F700627E94 /* ButtonViews.swift */,
@@ -372,9 +383,10 @@
 				A0492A83249D82A800A6A533 /* PlayerTimeUtils.swift in Sources */,
 				A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */,
 				A0492A81249D829200A6A533 /* VideoView.swift in Sources */,
-				A065A523248F10F600627E94 /* Error.swift in Sources */,
+				A065A523248F10F600627E94 /* ViewError.swift in Sources */,
 				A065A53324904D0C00627E94 /* LoginView.swift in Sources */,
 				A0492A612490941800A6A533 /* NewUserView.swift in Sources */,
+				A00B722324AD60CD0019C051 /* AWSS3Manager.swift in Sources */,
 				A0492A782498688300A6A533 /* VideoPlayerView.swift in Sources */,
 				A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */,
 			);

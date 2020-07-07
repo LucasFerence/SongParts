@@ -6,7 +6,12 @@ target 'SongParts' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
 
-  # --- MongoDB ---
-  pod 'MongoSwift'
+  # --- AlamoFire ---
+  pod 'Alamofire', '~> 5.2'
+
+  # --- AWS ---
+  pod 'AWSS3'
+  pod 'AWSCognito'
+  pod 'AWSCore'
 
 end

@@ -19,7 +19,7 @@ struct NewUserView: View {
     @State private var confirmPassword = ""
     
     @State private var userCreated = false
-    @State private var error: Error?
+    @State private var error: ViewError?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 26) {
@@ -67,11 +67,11 @@ struct NewUserView: View {
     
     func createUser() {
         if (!isConfirmPasswordValid(confirmPassword)) {
-            self.error = Error(message: "Passwords do not match")
+            self.error = ViewError(message: "Passwords do not match")
         } else {
             session.createAccount(email: email, password: password) { (result, err) in
                 if err != nil {
-                    self.error = Error(message: err!.localizedDescription)
+                    self.error = ViewError(message: err!.localizedDescription)
                 } else {
                     self.userCreated = true
                 }

@@ -28,6 +28,10 @@ struct HomeView: View {
                     
                     if (self.url != nil) {
                         VideoView(url: self.url!)
+                        
+                        _PrimaryButton(title: "Upload Video") {
+                            self.uploadVideo()
+                        }
                     }
                     
                     _PrimaryButton(title: "Select Video") {
@@ -51,5 +55,15 @@ struct HomeView: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
+    }
+    
+    func uploadVideo() {
+        AWSS3Manager.shared.uploadVideo(videoUrl: url!, progress: nil) { (uploadedFileUrl, error) in
+            if let finalPath = uploadedFileUrl as? String {
+                print(finalPath)
+            } else {
+                print("\(String(describing: error?.localizedDescription))")
+            }
+        }
     }
 }

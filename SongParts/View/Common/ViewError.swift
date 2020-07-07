@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Error: Identifiable {
+struct ViewError: Identifiable {
     let id: UUID = UUID()
     let message: String
 }

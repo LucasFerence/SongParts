@@ -17,7 +17,7 @@ struct LoginView: View {
     @State private var password = ""
     
     @State private var loggedIn = false
-    @State private var error: Error?
+    @State private var error: ViewError?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 26) {
@@ -58,7 +58,7 @@ struct LoginView: View {
     func login() {
         session.signIn(email: email, password: password) { (result, err) in
             if err != nil {
-                self.error = Error(message: err!.localizedDescription)
+                self.error = ViewError(message: err!.localizedDescription)
             } else {
                 self.loggedIn = true
             }
