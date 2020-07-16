@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A00B722324AD60CD0019C051 /* AWSS3Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00B722224AD60CD0019C051 /* AWSS3Manager.swift */; };
+		A00B722724BD46060019C051 /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00B722624BD46060019C051 /* VideoMerger.swift */; };
 		A03B663C24846476004E7DCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A03B663B24846476004E7DCE /* GoogleService-Info.plist */; };
 		A0492A612490941800A6A533 /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A602490941800A6A533 /* NewUserView.swift */; };
 		A0492A732498486800A6A533 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0492A722498486800A6A533 /* DocumentPicker.swift */; };
@@ -42,6 +43,7 @@
 		4835AC56BCBDD646098212E7 /* Pods-SongParts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.debug.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.debug.xcconfig"; sourceTree = "<group>"; };
 		641F53EB5886E35B5F5469A8 /* Pods-SongParts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SongParts.release.xcconfig"; path = "Target Support Files/Pods-SongParts/Pods-SongParts.release.xcconfig"; sourceTree = "<group>"; };
 		A00B722224AD60CD0019C051 /* AWSS3Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSS3Manager.swift; sourceTree = "<group>"; };
+		A00B722624BD46060019C051 /* VideoMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMerger.swift; sourceTree = "<group>"; };
 		A03B663B24846476004E7DCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0492A602490941800A6A533 /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
 		A0492A722498486800A6A533 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				A0492A82249D82A800A6A533 /* PlayerTimeUtils.swift */,
+				A00B722624BD46060019C051 /* VideoMerger.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A065A52D248F21F700627E94 /* ButtonViews.swift in Sources */,
+				A00B722724BD46060019C051 /* VideoMerger.swift in Sources */,
 				A065A529248F215C00627E94 /* TextModifiers.swift in Sources */,
 				A065A5362490566800627E94 /* HomeView.swift in Sources */,
 				A0492A7B249AE4EA00A6A533 /* ImagePicker.swift in Sources */,

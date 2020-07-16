@@ -36,7 +36,7 @@ class AWSS3Manager {
         
         do {
             try imageData.write(to: fileUrl)
-            self.uploadfile(fileUrl: fileUrl, fileName: fileName, contenType: "image", progress: progress, completion: completion)
+            self.uploadfile(fileUrl: fileUrl, fileName: fileName, contentType: "image", progress: progress, completion: completion)
         } catch {
             let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
             completion?(nil, error)
@@ -46,23 +46,23 @@ class AWSS3Manager {
     // Upload video from local path url
     func uploadVideo(videoUrl: URL, progress: progressBlock?, completion: completionBlock?) {
         let fileName = self.getUniqueFileName(fileUrl: videoUrl)
-        self.uploadfile(fileUrl: videoUrl, fileName: fileName, contenType: "video", progress: progress, completion: completion)
+        self.uploadfile(fileUrl: videoUrl, fileName: fileName, contentType: "video", progress: progress, completion: completion)
     }
     
     // Upload auido from local path url
     func uploadAudio(audioUrl: URL, progress: progressBlock?, completion: completionBlock?) {
         let fileName = self.getUniqueFileName(fileUrl: audioUrl)
-        self.uploadfile(fileUrl: audioUrl, fileName: fileName, contenType: "audio", progress: progress, completion: completion)
+        self.uploadfile(fileUrl: audioUrl, fileName: fileName, contentType: "audio", progress: progress, completion: completion)
     }
     
     // Upload files like Text, Zip, etc from local path url
-    func uploadOtherFile(fileUrl: URL, conentType: String, progress: progressBlock?, completion: completionBlock?) {
+    func uploadOtherFile(fileUrl: URL, contentType: String, progress: progressBlock?, completion: completionBlock?) {
         let fileName = self.getUniqueFileName(fileUrl: fileUrl)
-        self.uploadfile(fileUrl: fileUrl, fileName: fileName, contenType: conentType, progress: progress, completion: completion)
+        self.uploadfile(fileUrl: fileUrl, fileName: fileName, contentType: contentType, progress: progress, completion: completion)
     }
     
     // Get unique file name
-    func getUniqueFileName(fileUrl: URL) -> String {
+    private func getUniqueFileName(fileUrl: URL) -> String {
         let strExt: String = "." + (URL(fileURLWithPath: fileUrl.absoluteString).pathExtension)
         return (ProcessInfo.processInfo.globallyUniqueString + (strExt))
     }
@@ -73,7 +73,7 @@ class AWSS3Manager {
     // contenType: file MIME type
     // progress: file upload progress, value from 0 to 1, 1 for 100% complete
     // completion: completion block when uplaoding is finish, you will get S3 url of upload file here
-    private func uploadfile(fileUrl: URL, fileName: String, contenType: String, progress: progressBlock?, completion: completionBlock?) {
+    private func uploadfile(fileUrl: URL, fileName: String, contentType: String, progress: progressBlock?, completion: completionBlock?) {
                 
         // Upload progress block
         let expression = AWSS3TransferUtilityUploadExpression()
@@ -84,8 +84,7 @@ class AWSS3Manager {
                 uploadProgress(awsProgress.fractionCompleted)
             }
         }
-    
-        
+            
         // Completion block
         var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
         completionHandler = { (task, error) -> Void in
@@ -108,7 +107,14 @@ class AWSS3Manager {
         
         // Start uploading using AWSS3TransferUtility
         let awsTransferUtility = AWSS3TransferUtility.default()
-        awsTransferUtility.uploadFile(fileUrl, bucket: bucketName, key: fileName, contentType: contenType, expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
+        awsTransferUtility.uploadFile(
+            fileUrl,
+            bucket: bucketName,
+            key: fileName,
+            contentType: contentType,
+            expression: expression,
+            completionHandler: completionHandler
+        ).continueWith { (task) -> Any? in
             if let error = task.error {
                 print("error is: \(error.localizedDescription)")
             }
@@ -116,6 +122,29 @@ class AWSS3Manager {
                 // your uploadTask
             }
             return nil
+        }
+    }
+    
+    private func downloadFile(id: String, progress: progressBlock?, completion: completionBlock?) {
+        
+        let expression = AWSS3TransferUtilityDownloadExpression()
+        expression.progressBlock = { (task, awsProgress) in
+            print(awsProgress.fractionCompleted)
+            guard let downloadProgress = progress else { return }
+            DispatchQueue.main.async {
+                downloadProgress(awsProgress.fractionCompleted)
+            }
+        }
+        
+        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
+        completionHandler = { (task, location, data, error) in
+            if error == nil {
+                
+            } else {
+                if let completionBlock = completion {
+                    completionBlock(nil, error)
+                }
+            }
         }
     }
 }

@@ -8,12 +8,17 @@
 
 import SwiftUI
 
+let cloudfrontURL = "http://d2gl5jmebl6p7o.cloudfront.net/D666F12F-C31A-47C3-872D-AD122E641DBC-85537-0000CA126627E594.MOV"
+
 struct HomeView: View {
     
     @EnvironmentObject private var session: SessionStore
         
     @State private var inputImage: UIImage?
+    
     @State private var url: URL?
+    @State private var downloadUrl : URL?
+    @State private var exportUrl: URL?
     
     @State private var signOutSuccess = false
     @State private var isPickerShown = false
@@ -26,17 +31,25 @@ struct HomeView: View {
                 VStack {
                     Spacer()
                     
-                    if (self.url != nil) {
-                        VideoView(url: self.url!)
-                        
-                        _PrimaryButton(title: "Upload Video") {
-                            self.uploadVideo()
-                        }
+                    if (self.exportUrl != nil) {
+                        VideoView(url: self.exportUrl!)
+                            .padding(.bottom)
                     }
+                    
+                    _PrimaryButton(title: "Merge Videos") {
+                        self.mergeVideos()
+                    }
+                    .padding(.bottom)
                     
                     _PrimaryButton(title: "Select Video") {
                         self.isPickerShown = true
                     }
+                    .padding(.bottom)
+                                        
+                    _PrimaryButton(title: "Download Default Video") {
+                        self.downloadUrl = URL(string: cloudfrontURL)
+                    }
+                    .padding(.bottom)
                     
                     Spacer()
                     
@@ -45,8 +58,6 @@ struct HomeView: View {
                             self.signOutSuccess = true
                         }
                     }
-                    
-                    Spacer()
                 }
                 .sheet(isPresented: $isPickerShown) {
                     ImagePicker(url: self.$url, mediaTypes: [.video])
@@ -65,5 +76,25 @@ struct HomeView: View {
                 print("\(String(describing: error?.localizedDescription))")
             }
         }
+    }
+    
+    func mergeVideos() {
+        VideoMerger.merge(
+            videoFileURLs: [url!, url!, url!, url!],
+            videoResolution: CGSize(width: 1280, height: 720)
+        ) { (export, err) in
+            if err != nil {
+                print(err.debugDescription)
+            } else {
+                self.exportUrl = export
+                return
+            }
+        }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }
