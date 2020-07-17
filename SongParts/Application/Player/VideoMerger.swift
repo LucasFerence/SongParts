@@ -10,24 +10,36 @@ import MediaPlayer
 
 typealias videoMergeCompletion = (_ mergedVideoURL: URL?, _ error: Error?) -> Void
 
+/*
+ Redesign
+ - Create base asset composition
+ - Compute max time (longest video)
+ - Create base instruction
+ - Construct instruction for each asset
+    - Create video track with time range
+    - Create transforms/scales
+    - Compute position in base composition
+ - Export video
+ */
 class VideoMerger {
     
-    static func merge(videoFileURLs: [URL], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
+    static let shared = VideoMerger()
+    private init() { }
+        
+    func merge(videoFileURLs: [URL], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
         // TODO: Handle any amount of videos and dynamically merge
         // TODO: Figure out audio merging, I don't think this handles that
         // TODO: Change background/between video color to look better (its currently black)
         
-        if videoFileURLs.count != 4 {
-            return
-        }
-        
         let composition = AVMutableComposition()
         var maxTime = AVURLAsset(url: videoFileURLs[0], options: nil).duration
-        for videoFileURL in videoFileURLs {
-            let options = [
-                AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true)
-            ]
-            let asset = AVURLAsset(url: videoFileURL, options: options)
+        
+        let options = [
+            AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true)
+        ]
+        let assets = videoFileURLs.map { AVURLAsset(url: $0, options: options) }
+        
+        for asset in assets {
             if CMTimeCompare(maxTime, asset.duration) == -1 {
                 maxTime = asset.duration
             }
@@ -37,10 +49,10 @@ class VideoMerger {
         instruction.timeRange = CMTimeRangeMake(start: .zero, duration: maxTime)
         
         var arrAVMutableVideoCompositionLayerInstruction: [AVMutableVideoCompositionLayerInstruction] = []
-        for i in 0 ..< videoFileURLs.count {
+        
+        for i in 0 ..< assets.count {
             
-            let videoFileURL = videoFileURLs[i]
-            let asset = AVURLAsset(url: videoFileURL, options: nil)
+            let asset = assets[i]
             
             guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else {
                 return
@@ -59,48 +71,13 @@ class VideoMerger {
             
             let subInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
             
-            var scale = CGAffineTransform(scaleX: 1, y: 1)
-            var move = CGAffineTransform(translationX: 0, y: 0)
+            let transform = computeTransform(
+                at: i,
+                outputSize: videoResolution,
+                trackSize: videoTrack.naturalSize
+            )
             
-            var tx : CGFloat = 0
-            if videoResolution.width / 2 - (videoTrack.naturalSize.width) != 0 {
-                tx = ((videoResolution.width / 2 - (videoTrack.naturalSize.width)) / 2)
-            }
-            
-            var ty : CGFloat = 0
-            if videoResolution.height / 2 - (videoTrack.naturalSize.height) != 0 {
-                ty = ((videoResolution.height / 2 - (videoTrack.naturalSize.height)) / 2)
-            }
-
-            if tx != 0 && ty != 0 {
-                if tx <= ty {
-                    let factor = CGFloat(videoResolution.width / 2 / videoTrack.naturalSize.width)
-                    scale = CGAffineTransform(scaleX: CGFloat(factor), y: CGFloat(factor))
-                    tx = 0
-                    ty = (videoResolution.height / 2 - videoTrack.naturalSize.height * factor) / 2
-                }
-                if tx > ty {
-                    let factor = CGFloat(videoResolution.height / 2 / videoTrack.naturalSize.height)
-                    scale = CGAffineTransform(scaleX: factor, y: factor)
-                    ty = 0
-                    tx = (videoResolution.width / 2 - videoTrack.naturalSize.width * factor) / 2
-                }
-            }
-            
-            switch i {
-                case 0:
-                    move = CGAffineTransform(translationX: CGFloat(0 + tx), y: 0 + ty)
-                case 1:
-                    move = CGAffineTransform(translationX: videoResolution.width / 2 + tx, y: 0 + ty)
-                case 2:
-                    move = CGAffineTransform(translationX: 0 + tx, y: videoResolution.height / 2 + ty)
-                case 3:
-                    move = CGAffineTransform(translationX: videoResolution.width / 2 + tx, y: videoResolution.height / 2 + ty)
-                default:
-                    break
-            }
-            
-            subInstruction.setTransform(scale.concatenating(move), at: .zero)
+            subInstruction.setTransform(transform, at: .zero)
             arrAVMutableVideoCompositionLayerInstruction.append(subInstruction)
             
             instruction.layerInstructions = arrAVMutableVideoCompositionLayerInstruction.reversed()
@@ -111,11 +88,79 @@ class VideoMerger {
         mainCompositionInst.frameDuration = CMTimeMake(value: 1, timescale: 30)
         mainCompositionInst.renderSize = videoResolution
         
-        let url = URL(fileURLWithPath: VideoMerger.generateMergedVideoFilePath())
+        exportVideo(
+            asset: composition,
+            composition: mainCompositionInst,
+            completion: completion
+        )
+    }
+    
+    private func computeTransform(at index: Int, outputSize: CGSize, trackSize: CGSize) -> CGAffineTransform {
         
-        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetMediumQuality)
+        var scale = CGAffineTransform(scaleX: 1, y: 1)
+        var move = CGAffineTransform(translationX: 0, y: 0)
+        
+        // tx and ty represent the transform values of the video track. These are necessary if
+        // the videos do not perfectly fit into the defined resolution
+        
+        var tx : CGFloat = 0
+        if outputSize.width / 2 - (trackSize.width) != 0 {
+            tx = ((outputSize.width / 2 - (trackSize.width)) / 2)
+        }
+        
+        var ty : CGFloat = 0
+        if outputSize.height / 2 - (trackSize.height) != 0 {
+            ty = ((outputSize.height / 2 - (trackSize.height)) / 2)
+        }
+
+        if tx != 0 && ty != 0 {
+            if tx <= ty {
+                let factor = CGFloat(outputSize.width / 2 / trackSize.width)
+                scale = CGAffineTransform(scaleX: CGFloat(factor), y: CGFloat(factor))
+                tx = 0
+                ty = (outputSize.height / 2 - trackSize.height * factor) / 2
+            }
+            if tx > ty {
+                let factor = CGFloat(outputSize.height / 2 / trackSize.height)
+                scale = CGAffineTransform(scaleX: factor, y: factor)
+                ty = 0
+                tx = (outputSize.width / 2 - trackSize.width * factor) / 2
+            }
+        }
+        
+        switch index {
+            case 0:
+                move = CGAffineTransform(translationX: CGFloat(0 + tx), y: 0 + ty)
+            case 1:
+                move = CGAffineTransform(translationX: outputSize.width / 2 + tx, y: 0 + ty)
+            case 2:
+                move = CGAffineTransform(translationX: 0 + tx, y: outputSize.height / 2 + ty)
+            case 3:
+                move = CGAffineTransform(translationX: outputSize.width / 2 + tx, y: outputSize.height / 2 + ty)
+            default:
+                break
+        }
+        
+        return scale.concatenating(move)
+    }
+    
+    private func generateMergedVideoFilePath(type: String) -> String {
+        let basePath = ((FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last)?.path)!
+        let uuid = UUID().uuidString
+        
+        return URL(fileURLWithPath: basePath).appendingPathComponent("\(uuid).\(type)").path
+    }
+    
+    private func exportVideo(
+        asset: AVMutableComposition,
+        composition: AVMutableVideoComposition,
+        completion: @escaping videoMergeCompletion) {
+        
+        let url = URL(fileURLWithPath: generateMergedVideoFilePath(type: "mp4"))
+        
+        let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality)
         exporter?.outputURL = url
-        exporter?.videoComposition = mainCompositionInst
+        exporter?.videoComposition = composition
         exporter?.outputFileType = .mp4
         
         let exportCompletion: (() -> Void) = {() -> Void in
@@ -128,10 +173,10 @@ class VideoMerger {
             exportSession.exportAsynchronously(completionHandler: { () -> Void in
                 switch exportSession.status {
                     case .completed:
-                        print("Successfully merged: %@", exportSession.outputURL ?? "")
+                        print("Successfully merged: \(String(describing: exportSession.outputURL))")
                         exportCompletion()
                     case .failed:
-                        print("Failed %@",exportSession.error ?? "")
+                        print("Failed \(String(describing: exportSession.error))")
                         exportCompletion()
                         return
                     case .cancelled:
@@ -148,9 +193,5 @@ class VideoMerger {
                 }
             })
         }
-    }
-    
-    fileprivate static func generateMergedVideoFilePath() -> String {
-        return URL(fileURLWithPath: ((FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last)?.path)!).appendingPathComponent("\(UUID().uuidString)-mergedVideo.mp4").path
     }
 }

@@ -124,27 +124,4 @@ class AWSS3Manager {
             return nil
         }
     }
-    
-    private func downloadFile(id: String, progress: progressBlock?, completion: completionBlock?) {
-        
-        let expression = AWSS3TransferUtilityDownloadExpression()
-        expression.progressBlock = { (task, awsProgress) in
-            print(awsProgress.fractionCompleted)
-            guard let downloadProgress = progress else { return }
-            DispatchQueue.main.async {
-                downloadProgress(awsProgress.fractionCompleted)
-            }
-        }
-        
-        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
-        completionHandler = { (task, location, data, error) in
-            if error == nil {
-                
-            } else {
-                if let completionBlock = completion {
-                    completionBlock(nil, error)
-                }
-            }
-        }
-    }
 }

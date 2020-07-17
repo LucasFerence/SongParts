@@ -79,9 +79,9 @@ struct HomeView: View {
     }
     
     func mergeVideos() {
-        VideoMerger.merge(
+        VideoMerger.shared.merge(
             videoFileURLs: [url!, url!, url!, url!],
-            videoResolution: CGSize(width: 1280, height: 720)
+            videoResolution: CGSize(width: 640, height: 480)
         ) { (export, err) in
             if err != nil {
                 print(err.debugDescription)
