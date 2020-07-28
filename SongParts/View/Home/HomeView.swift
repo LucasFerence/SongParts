@@ -41,7 +41,7 @@ struct HomeView: View {
                     }
                     .padding(.bottom)
                     
-                    _PrimaryButton(title: "Select Video") {
+                    _PrimaryButton(title: "Record Video") {
                         self.isPickerShown = true
                     }
                     .padding(.bottom)
@@ -79,9 +79,9 @@ struct HomeView: View {
     }
     
     func mergeVideos() {
-        VideoMerger.shared.merge(
-            videoFileURLs: [url!, url!, url!, url!],
-            videoResolution: CGSize(width: 640, height: 480)
+        VideoMerger.shared.mergeTwo(
+            videoFileURLs: [url!, url!],
+            videoResolution: CGSize(width: 700, height: 400)
         ) { (export, err) in
             if err != nil {
                 print(err.debugDescription)

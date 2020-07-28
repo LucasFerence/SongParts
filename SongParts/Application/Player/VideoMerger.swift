@@ -10,26 +10,41 @@ import MediaPlayer
 
 typealias videoMergeCompletion = (_ mergedVideoURL: URL?, _ error: Error?) -> Void
 
-/*
- Redesign
- - Create base asset composition
- - Compute max time (longest video)
- - Create base instruction
- - Construct instruction for each asset
-    - Create video track with time range
-    - Create transforms/scales
-    - Compute position in base composition
- - Export video
- */
+enum MergeError: Error {
+    case urlCount
+    case unmatchedTransforms
+}
+
 class VideoMerger {
     
     static let shared = VideoMerger()
     private init() { }
+    
+    func mergeTwo(videoFileURLs: [URL], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
+        if videoFileURLs.count != 2 {
+            DispatchQueue.main.async { completion(nil, MergeError.urlCount) }
+        }
+    
+        var transforms: [CGAffineTransform] = []
         
-    func merge(videoFileURLs: [URL], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
-        // TODO: Handle any amount of videos and dynamically merge
-        // TODO: Figure out audio merging, I don't think this handles that
-        // TODO: Change background/between video color to look better (its currently black)
+        let rotationAngle = CGFloat.pi / 2
+        let scale = CGAffineTransform(scaleX: 0.5, y: 0.5)
+             
+        // These translations don't make sense, but they are working I suppose.
+        transforms.append(
+            scale.translatedBy(x: 400, y: 0).rotated(by: rotationAngle)
+        )
+        transforms.append(
+            scale.translatedBy(x: videoResolution.width + 400, y: 0).rotated(by: rotationAngle)
+        )
+        
+        merge(videoFileURLs: videoFileURLs, transforms: transforms, videoResolution: videoResolution, completion: completion)
+    }
+
+    private func merge(videoFileURLs: [URL], transforms: [CGAffineTransform], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
+        if (videoFileURLs.count != transforms.count) {
+            DispatchQueue.main.async { completion(nil, MergeError.unmatchedTransforms) }
+        }
         
         let composition = AVMutableComposition()
         var maxTime = AVURLAsset(url: videoFileURLs[0], options: nil).duration
@@ -53,7 +68,7 @@ class VideoMerger {
         for i in 0 ..< assets.count {
             
             let asset = assets[i]
-            
+                                    
             guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else {
                 return
             }
@@ -71,13 +86,7 @@ class VideoMerger {
             
             let subInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
             
-            let transform = computeTransform(
-                at: i,
-                outputSize: videoResolution,
-                trackSize: videoTrack.naturalSize
-            )
-            
-            subInstruction.setTransform(transform, at: .zero)
+            subInstruction.setTransform(transforms[i], at: .zero)
             arrAVMutableVideoCompositionLayerInstruction.append(subInstruction)
             
             instruction.layerInstructions = arrAVMutableVideoCompositionLayerInstruction.reversed()
@@ -96,7 +105,6 @@ class VideoMerger {
     }
     
     private func computeTransform(at index: Int, outputSize: CGSize, trackSize: CGSize) -> CGAffineTransform {
-        
         var scale = CGAffineTransform(scaleX: 1, y: 1)
         var move = CGAffineTransform(translationX: 0, y: 0)
         
@@ -107,7 +115,7 @@ class VideoMerger {
         if outputSize.width / 2 - (trackSize.width) != 0 {
             tx = ((outputSize.width / 2 - (trackSize.width)) / 2)
         }
-        
+
         var ty : CGFloat = 0
         if outputSize.height / 2 - (trackSize.height) != 0 {
             ty = ((outputSize.height / 2 - (trackSize.height)) / 2)
@@ -130,7 +138,7 @@ class VideoMerger {
         
         switch index {
             case 0:
-                move = CGAffineTransform(translationX: CGFloat(0 + tx), y: 0 + ty)
+                move = CGAffineTransform(translationX: CGFloat(0 + tx), y: outputSize.height / 2 + ty)
             case 1:
                 move = CGAffineTransform(translationX: outputSize.width / 2 + tx, y: 0 + ty)
             case 2:
@@ -141,7 +149,7 @@ class VideoMerger {
                 break
         }
         
-        return scale.concatenating(move)
+        return scale.concatenating(move).rotated(by: CGFloat(Double.pi / 2))
     }
     
     private func generateMergedVideoFilePath(type: String) -> String {

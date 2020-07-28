@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -79,30 +83,6 @@
 				<false/>
 				<key>NSIncludesSubdomains</key>
 				<true/>
-			</dict>
-		</dict>
-	</dict>
-	<key>AWS</key>
-	<dict>
-		<key>CredentialsProvider</key>
-		<dict>
-			<key>CognitoIdentity</key>
-			<dict>
-				<key>Default</key>
-				<dict>
-					<key>PoolId</key>
-					<string>us-east-1:e042182a-7b19-4623-84f3-a28d41f71de5</string>
-					<key>Region</key>
-					<string>us-east-1</string>
-				</dict>
-			</dict>
-		</dict>
-		<key>S3TransferManager</key>
-		<dict>
-			<key>Default</key>
-			<dict>
-				<key>Region</key>
-				<string>us-east-1</string>
 			</dict>
 		</dict>
 	</dict>
