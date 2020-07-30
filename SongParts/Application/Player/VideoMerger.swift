@@ -20,6 +20,9 @@ class VideoMerger {
     static let shared = VideoMerger()
     private init() { }
     
+    /*
+     This example currently assumes both videos are of the same resolution
+     */
     func mergeTwo(videoFileURLs: [URL], videoResolution: CGSize, completion: @escaping videoMergeCompletion) {
         if videoFileURLs.count != 2 {
             DispatchQueue.main.async { completion(nil, MergeError.urlCount) }
@@ -28,14 +31,17 @@ class VideoMerger {
         var transforms: [CGAffineTransform] = []
         
         let rotationAngle = CGFloat.pi / 2
-        let scale = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        let scale = CGAffineTransform(scaleX: 1, y: 1)
+        
+        // When you rotate 90 degrees, you have to offset it the width of the video
+        // since it seems to rotate around the upper left corner
+        let offset = resolutionForVideo(videoFileURLs[0])!.width
              
-        // These translations don't make sense, but they are working I suppose.
         transforms.append(
-            scale.translatedBy(x: 400, y: 0).rotated(by: rotationAngle)
+            scale.translatedBy(x: offset, y: 0).rotated(by: rotationAngle)
         )
         transforms.append(
-            scale.translatedBy(x: videoResolution.width + 400, y: 0).rotated(by: rotationAngle)
+            scale.translatedBy(x: offset * 2, y: 0).rotated(by: rotationAngle)
         )
         
         merge(videoFileURLs: videoFileURLs, transforms: transforms, videoResolution: videoResolution, completion: completion)
@@ -73,10 +79,20 @@ class VideoMerger {
                 return
             }
             
+            guard let audioTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+                return
+            }
+            
             do {
                 try videoTrack.insertTimeRange(
                     CMTimeRangeMake(start: .zero, duration: maxTime),
                     of: asset.tracks(withMediaType: .video)[0],
+                    at: .zero
+                )
+                
+                try audioTrack.insertTimeRange(
+                    CMTimeRangeMake(start: CMTime.zero, duration: asset.duration),
+                    of: asset.tracks(withMediaType: .audio)[0],
                     at: .zero
                 )
             } catch {
@@ -201,5 +217,11 @@ class VideoMerger {
                 }
             })
         }
+    }
+    
+    private func resolutionForVideo(_ url: URL) -> CGSize? {
+        guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaType.video).first else { return nil }
+        let size = track.naturalSize.applying(track.preferredTransform)
+        return CGSize(width: abs(size.width), height: abs(size.height))
     }
 }

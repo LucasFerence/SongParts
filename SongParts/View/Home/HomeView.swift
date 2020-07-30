@@ -10,14 +10,19 @@ import SwiftUI
 
 let cloudfrontURL = "http://d2gl5jmebl6p7o.cloudfront.net/D666F12F-C31A-47C3-872D-AD122E641DBC-85537-0000CA126627E594.MOV"
 
+/*
+ This view obviously needs to be redone entirely. It is acting as a playground for now.
+ */
 struct HomeView: View {
     
     @EnvironmentObject private var session: SessionStore
         
     @State private var inputImage: UIImage?
     
+    @State private var firstVideo: URL?
+    @State private var secondVideo: URL?
+    
     @State private var url: URL?
-    @State private var downloadUrl : URL?
     @State private var exportUrl: URL?
     
     @State private var signOutSuccess = false
@@ -37,17 +42,14 @@ struct HomeView: View {
                     }
                     
                     _PrimaryButton(title: "Merge Videos") {
-                        self.mergeVideos()
+                        if self.firstVideo != nil && self.secondVideo != nil {
+                            self.mergeVideos()
+                        }
                     }
                     .padding(.bottom)
                     
                     _PrimaryButton(title: "Record Video") {
                         self.isPickerShown = true
-                    }
-                    .padding(.bottom)
-                                        
-                    _PrimaryButton(title: "Download Default Video") {
-                        self.downloadUrl = URL(string: cloudfrontURL)
                     }
                     .padding(.bottom)
                     
@@ -60,7 +62,11 @@ struct HomeView: View {
                     }
                 }
                 .sheet(isPresented: $isPickerShown) {
-                    ImagePicker(url: self.$url, mediaTypes: [.video])
+                    if self.firstVideo == nil {
+                        ImagePicker(url: self.$firstVideo, mediaTypes: [.video])
+                    } else if self.secondVideo == nil {
+                        ImagePicker(url: self.$secondVideo, mediaTypes: [.video])
+                    }
                 }
             }
         }
@@ -80,8 +86,8 @@ struct HomeView: View {
     
     func mergeVideos() {
         VideoMerger.shared.mergeTwo(
-            videoFileURLs: [url!, url!],
-            videoResolution: CGSize(width: 700, height: 400)
+            videoFileURLs: [firstVideo!, secondVideo!],
+            videoResolution: CGSize(width: 720, height: 480)
         ) { (export, err) in
             if err != nil {
                 print(err.debugDescription)
