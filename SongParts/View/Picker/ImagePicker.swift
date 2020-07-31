@@ -34,8 +34,10 @@ struct ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-
+    func updateUIViewController(_ vc: UIImagePickerController, context: Context) {
+        // start video capture here, on some sort of condition.
+        // This will get called anytime the state changes
+        // Will this work with a binding variable state change in the parent view???
     }
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {

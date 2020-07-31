@@ -66,6 +66,12 @@ struct HomeView: View {
                         ImagePicker(url: self.$firstVideo, mediaTypes: [.video])
                     } else if self.secondVideo == nil {
                         ImagePicker(url: self.$secondVideo, mediaTypes: [.video])
+                        
+                        // Play the first video for fun :)
+                        // Eventually it will need to do this so you can record over
+                        // Really just need to figure out how to trigger the other video to play when recording starts
+                        VideoView(url: self.firstVideo!)
+                            .padding(.bottom)
                     }
                 }
             }
