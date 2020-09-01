@@ -28,6 +28,10 @@
 		A065A531248F27C100627E94 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A530248F27C100627E94 /* ErrorTextField.swift */; };
 		A065A53324904D0C00627E94 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A53224904D0C00627E94 /* LoginView.swift */; };
 		A065A5362490566800627E94 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A065A5352490566800627E94 /* HomeView.swift */; };
+		A0B290FA24FC2CDF001E5E95 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B290F924FC2CDF001E5E95 /* CameraController.swift */; };
+		A0B290FC24FC335F001E5E95 /* CameraControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B290FB24FC335F001E5E95 /* CameraControllerRepresentable.swift */; };
+		A0B2910024FC3AA5001E5E95 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B290FF24FC3AA5001E5E95 /* CameraView.swift */; };
+		A0B2910224FDE3B0001E5E95 /* DeviceInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2910124FDE3B0001E5E95 /* DeviceInputManager.swift */; };
 		A0EDCE652483FE4100AA30C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EDCE642483FE4100AA30C6 /* AppDelegate.swift */; };
 		A0EDCE672483FE4100AA30C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EDCE662483FE4100AA30C6 /* SceneDelegate.swift */; };
 		A0EDCE6B2483FE4400AA30C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0EDCE6A2483FE4400AA30C6 /* Assets.xcassets */; };
@@ -63,6 +67,10 @@
 		A065A530248F27C100627E94 /* ErrorTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		A065A53224904D0C00627E94 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A065A5352490566800627E94 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A0B290F924FC2CDF001E5E95 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		A0B290FB24FC335F001E5E95 /* CameraControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControllerRepresentable.swift; sourceTree = "<group>"; };
+		A0B290FF24FC3AA5001E5E95 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		A0B2910124FDE3B0001E5E95 /* DeviceInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInputManager.swift; sourceTree = "<group>"; };
 		A0EDCE612483FE4100AA30C6 /* SongParts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongParts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0EDCE642483FE4100AA30C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0EDCE662483FE4100AA30C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +124,7 @@
 		A03B6647248876CD004E7DCE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A0B290F824FC2C59001E5E95 /* Camera */,
 				A0492A79249AE4D600A6A533 /* Picker */,
 				A0492A74249867C200A6A533 /* Player */,
 				A065A5342490565A00627E94 /* Home */,
@@ -192,6 +201,17 @@
 				A065A5352490566800627E94 /* HomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		A0B290F824FC2C59001E5E95 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				A0B290F924FC2CDF001E5E95 /* CameraController.swift */,
+				A0B290FB24FC335F001E5E95 /* CameraControllerRepresentable.swift */,
+				A0B290FF24FC3AA5001E5E95 /* CameraView.swift */,
+				A0B2910124FDE3B0001E5E95 /* DeviceInputManager.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		A0EDCE582483FE4100AA30C6 = {
@@ -369,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B2910224FDE3B0001E5E95 /* DeviceInputManager.swift in Sources */,
 				A065A52D248F21F700627E94 /* ButtonViews.swift in Sources */,
 				A00B722724BD46060019C051 /* VideoMerger.swift in Sources */,
 				A065A529248F215C00627E94 /* TextModifiers.swift in Sources */,
@@ -384,10 +405,13 @@
 				A0492A7F249C3F9900A6A533 /* VideoPlayerControlsView.swift in Sources */,
 				A065A531248F27C100627E94 /* ErrorTextField.swift in Sources */,
 				A0EDCE672483FE4100AA30C6 /* SceneDelegate.swift in Sources */,
+				A0B290FC24FC335F001E5E95 /* CameraControllerRepresentable.swift in Sources */,
 				A0492A83249D82A800A6A533 /* PlayerTimeUtils.swift in Sources */,
+				A0B290FA24FC2CDF001E5E95 /* CameraController.swift in Sources */,
 				A065A521248DCAB100627E94 /* ViewUnwrapper.swift in Sources */,
 				A0492A81249D829200A6A533 /* VideoView.swift in Sources */,
 				A065A523248F10F600627E94 /* ViewError.swift in Sources */,
+				A0B2910024FC3AA5001E5E95 /* CameraView.swift in Sources */,
 				A065A53324904D0C00627E94 /* LoginView.swift in Sources */,
 				A0492A612490941800A6A533 /* NewUserView.swift in Sources */,
 				A00B722324AD60CD0019C051 /* AWSS3Manager.swift in Sources */,

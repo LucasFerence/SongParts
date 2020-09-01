@@ -35,6 +35,11 @@ struct VideoPlayerControlsView : View {
         }
         .padding(.leading, 10)
         .padding(.trailing, 10)
+        .onAppear {
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                self.togglePlayPause()
+            }
+        }
     }
     
     private func togglePlayPause() {

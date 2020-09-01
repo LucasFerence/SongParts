@@ -63,7 +63,8 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $isPickerShown) {
                     if self.firstVideo == nil {
-                        ImagePicker(url: self.$firstVideo, mediaTypes: [.video])
+                        //ImagePicker(url: self.$firstVideo, mediaTypes: [.video])
+                        CameraView(url: self.$firstVideo)
                     } else if self.secondVideo == nil {
                         ImagePicker(url: self.$secondVideo, mediaTypes: [.video])
                         

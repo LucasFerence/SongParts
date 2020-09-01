@@ -31,6 +31,13 @@ struct ImagePicker: UIViewControllerRepresentable {
         picker.mediaTypes = self.mediaTypes.map{ $0.rawValue }
         picker.sourceType = .camera
         
+        // This will hide all controls, will need to add custom controls
+        // Just need to add a custom button to start/stop really.
+        // There will also definitely need to some custom stuff anyway tbh
+        
+        //picker.showsCameraControls = false
+        //picker.perform(#selector(UIImagePickerController.startVideoCapture), with: nil, afterDelay: 2)
+        
         return picker
     }
 
