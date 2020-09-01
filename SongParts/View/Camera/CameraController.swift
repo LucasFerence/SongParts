@@ -196,7 +196,7 @@ class CameraController: UIViewController {
     
     // MARK: Access
     
-    @objc func start() {
+    func start() {
         guard !isRecording else { return }
                 
         isRecording = true
@@ -216,7 +216,7 @@ class CameraController: UIViewController {
         }
     }
     
-    @objc func stop() {
+    func stop() {
         guard isRecording else { return }
         isRecording = false
         videoWriterInput.markAsFinished()

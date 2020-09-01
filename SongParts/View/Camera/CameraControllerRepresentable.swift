@@ -12,19 +12,27 @@ struct CameraControllerRepresentable: UIViewControllerRepresentable {
     
     @Binding var url: URL?
     
+    let controller = CameraController()
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     func makeUIViewController(context: Context) -> CameraController {
-        let controller = CameraController()
         controller.delegate = context.coordinator
-        
         return controller
     }
     
     func updateUIViewController(_ vc: CameraController, context: Context) {
         // Do nothing
+    }
+    
+    func startRecording() {
+        controller.start()
+    }
+    
+    func stopRecording() {
+        controller.stop()
     }
     
     class Coordinator: NSObject, CameraControllerDelegate {

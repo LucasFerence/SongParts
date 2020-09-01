@@ -63,10 +63,9 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $isPickerShown) {
                     if self.firstVideo == nil {
-                        //ImagePicker(url: self.$firstVideo, mediaTypes: [.video])
                         CameraView(url: self.$firstVideo)
                     } else if self.secondVideo == nil {
-                        ImagePicker(url: self.$secondVideo, mediaTypes: [.video])
+                        CameraView(url: self.$secondVideo)
                         
                         // Play the first video for fun :)
                         // Eventually it will need to do this so you can record over

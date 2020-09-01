@@ -12,16 +12,27 @@ struct CameraView: View {
     
     @Binding var url: URL?
     
+    private let cameraController: CameraControllerRepresentable
+    
+    init(url: Binding<URL?>) {
+        self._url = url
+        self.cameraController = CameraControllerRepresentable(url: self._url)
+    }
+    
     var body: some View {
         ZStack {
-            CameraControllerRepresentable(url: $url)
+            cameraController
             
             VStack {
                 Spacer()
                 
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 100, height: 50)
+                _PrimaryButton(title: "Start") {
+                    self.cameraController.startRecording()
+                }
+                
+                _PrimaryButton(title: "Stop") {
+                    self.cameraController.stopRecording()
+                }
             }
         }
     }
